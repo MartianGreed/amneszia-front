@@ -3,31 +3,45 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --border-start-rgb: 52, 42, 255;
+  --border-end-rgb: 255, 255, 0;
+  --bg-dark: #2e1f99;
+  --bg-light: #cbc5ea;
+  
+  --blue: #342aff;
+  --yellow: #ffff00;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: var(--bg-dark);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.button {
+  border-width: 4px;
+  border-style: solid;
+  border-image: linear-gradient(to top, var(--yellow), var(--blue)) 1;
+  color: var(--yellow);
+  padding-top: 1.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 1.5rem;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+}
+
+.tile {
+  border-width: 4px;
+  border-style: solid;
+  border-color: var(--bg-dark);
+  background-image: url('../../public/pattern.png');
+  background-size: 265%;
+}
+.tile.hovered {
+  border-image: linear-gradient(to top, var(--yellow), var(--blue)) 1;
 }
