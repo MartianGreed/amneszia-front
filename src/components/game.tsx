@@ -3,28 +3,13 @@
 import { useEffect, useState } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { Tile, TileItem } from './tile';
-import { InferGetStaticPropsType, GetStaticProps } from 'next';
 
-export const getStaticProps = (() => {
-  return {
-    props: {
-      domain: process.env.BACKEND_DOMAIN ?? "ws://localhost:8000",
-    }
-  };
 
-}) satisfies GetStaticProps<{ domain: string }>
-
-export default function Game({ domain }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [d, setDomain] = useState<string>("ws://localhost:8000");
+export default function Game() {
   const [grid, setGrid] = useState<Array<Array<Tile>>>([[]]);
   const [hovered, setHovered] = useState<Array<Array<boolean>>>([[]]);
   const [messageHistory, setMessageHistory] = useState<MessageEvent<any>[]>([]);
-  const { sendMessage, lastMessage } = useWebSocket(`${d}/ws`);
-  useEffect(() => {
-    if (undefined !== domain) {
-      setDomain(domain)
-    }
-  }, [domain]);
+  const { sendMessage, lastMessage } = useWebSocket(`${undefined !== process.env.NEXT_PUBLIC_BACKEND_DOMAIN ? process.env.NEXT_PUBLIC_BACKEND_DOMAIN : "ws://localhost:8000"}/ws`);
 
   useEffect(() => {
     if (lastMessage !== null) {

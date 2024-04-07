@@ -3,7 +3,8 @@ import { useAccount, useConnect } from "@starknet-react/core";
 import { useCallback, useState } from "react";
 import Image from 'next/image'
 import logo from '../../public/logo.svg'
-import Game from "./game";
+import Game from "../components/game";
+
 
 export default function Home() {
   const { account, address, status } = useAccount();
