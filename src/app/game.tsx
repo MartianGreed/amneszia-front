@@ -59,7 +59,7 @@ export default function Game() {
 
   return (
     <>
-      <div className="grid grid-rows-6 w-full gap-4 grid-cols-auto-fill-100">
+      <div className="grid w-full gap-4 grid-cols-10 grid-rows-6">
         {grid.map((row, idxP) => {
           return row.map((tile, idx) => {
             return <TileItem key={`${idxP}_${idx}`} tile={tile} x={idxP} y={idx} isHovered={hovered[idxP][idx]} sendMessage={sendMessage} />

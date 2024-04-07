@@ -44,4 +44,22 @@ body {
 }
 .tile.hovered {
   border-image: linear-gradient(to top, var(--yellow), var(--blue)) 1;
+  
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  grid-auto-rows: 1fr;
+}
+.grid::before {
+  content: '';
+  width: 0;
+  padding-bottom: 100%;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+.grid > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
 }
