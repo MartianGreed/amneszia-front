@@ -11,6 +11,9 @@ dependencies:
   '@starknet-react/core':
     specifier: ^2.6.0
     version: 2.6.0(get-starknet-core@3.2.0)(react@18.2.0)(starknet@5.24.3)
+  bn.js:
+    specifier: ^5.2.1
+    version: 5.2.1
   get-starknet-core:
     specifier: ^3.2.0
     version: 3.2.0(starknet@5.24.3)
@@ -681,6 +684,10 @@ packages:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
     dev: true
+
+  /bn.js@5.2.1:
+    resolution: {integrity: sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==}
+    dev: false
 
   /brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}

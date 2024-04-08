@@ -63,3 +63,6 @@ body {
   grid-row: 1 / 1;
   grid-column: 1 / 1;
 }
+.text-yellow {
+  color: var(--yellow);
+}

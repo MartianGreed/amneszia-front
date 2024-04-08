@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import Image from 'next/image'
 import logo from '../../public/logo.svg'
 import Game from "../components/game";
+import Wallet from "../components/wallet";
 
 
 export default function Home() {
@@ -15,7 +16,8 @@ export default function Home() {
 
   if (status === "connected") {
     return (
-      <main className="flex min-h-screen flex-col items-center p-20">
+      <main className="flex min-h-screen flex-col items-center p-20 pt-10 relative">
+        <Wallet />
         <Game />
       </main>
     )
@@ -26,10 +28,6 @@ export default function Home() {
 
       <div className="relative flex place-items-center">
         <Image src={logo} alt="Amneszia" />
-        {/* <h1 className="text-3xl text-center"> */}
-        {/*   Amneszia */}
-        {/*   <small className="block text-sm text-slate-500">Will you find those pairs ?</small> */}
-        {/* </h1> */}
       </div>
       <div className="flex place-items-center mt-24">
         {!isReady && <button onClick={onClick} className="button">Ready ?</button>}

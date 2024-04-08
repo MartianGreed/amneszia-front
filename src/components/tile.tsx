@@ -15,17 +15,14 @@ export type TileItemProps = {
 
 export function TileItem({ tile, x, y, isHovered, sendMessage }: TileItemProps) {
   const handleMouseEnter = useCallback(() => {
-    console.log(`Entered ${x}, ${y}`)
     sendMessage(buildMessage(HOVERED, x, y))
   }, [x, y])
 
   const handleMouseLeave = useCallback(() => {
-    console.log(`Left ${x}, ${y}`)
     sendMessage(buildMessage(LEAVE, x, y))
   }, [x, y])
 
   const handleReveal = useCallback(() => {
-    console.log(`Revealed ${x}, ${y}`)
     sendMessage(buildMessage(REVEALED, x, y))
   }, [x, y])
 
