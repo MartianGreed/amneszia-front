@@ -27,7 +27,7 @@ export function TileItem({ tile, x, y, isHovered, sendMessage }: TileItemProps) 
   }, [x, y])
 
   const className = useMemo(() => {
-    return `tile  transform transition duration-75 ${isHovered ? " hovered scale-105" : ""}`;
+    return `tile transform transition duration-75 ${isHovered ? " hovered scale-105" : ""}`;
   }, [isHovered]);
 
 
