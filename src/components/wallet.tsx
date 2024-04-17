@@ -19,8 +19,8 @@ export default function Wallet() {
 
   return (
     <div className="self-end flex flex-row items-center mb-6">
-      <div className="text-base font-bold mr-6 text-yellow">Lord$ : {lordsBalance?.value.toString()}</div>
-      <div className="pb-10  button text-xs">{minifyAddressOrStarknetId(address, starknetId)}</div>
+      <div className="text-base font-bold mr-6 text-yellow">{lordsBalance?.formatted.split(".")[0]} {lordsBalance?.symbol} = {lordsBalance ? Math.floor(Math.log(parseFloat(lordsBalance.formatted))) : "0"} extra moves</div>
+      <div className="pb-10 button text-xs">{minifyAddressOrStarknetId(address, starknetId)}</div>
     </div>
   )
 }
