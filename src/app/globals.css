@@ -35,7 +35,13 @@ body {
   font-size: 1.3rem;
 }
 
+.input {
+  color: var(--bg-dark);
+  text-transform: none;
+}
+
 .tile {
+  position: relative;
   border-width: 4px;
   border-style: solid;
   border-color: var(--bg-dark);
@@ -45,6 +51,31 @@ body {
 .tile.hovered {
   border-image: linear-gradient(to top, var(--yellow), var(--blue)) 1;
   
+}
+
+.tooltip {
+  background-color: white;
+  color: black;
+  position: absolute;
+  top: -2.5rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  font-size: .8rem;
+  padding: .3rem;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
 }
 
 .grid {

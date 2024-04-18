@@ -5,7 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 export const STARKNET_ID_INDEXER_TESTNET = "https://goerli.indexer.starknet.id";
 export const STARKNET_ID_INDEXER_MAINNET = "https://app.starknet.id/api/indexer";
 
-export default function Wallet() {
+export type WalletProps = {
+  name: string;
+};
+export default function Wallet({ name }: WalletProps) {
   const [starknetId, setStarknetId] = useState(undefined);
   const { account, address, status } = useAccount();
   const { data: lordsBalance } = useBalance({ token: "0x0124aeb495b947201f5fac96fd1138e326ad86195b98df6dec9009158a533b49", address });

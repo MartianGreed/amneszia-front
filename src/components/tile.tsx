@@ -9,11 +9,12 @@ export type TileItemProps = {
   tile: Tile;
   x: number;
   y: number;
-  isHovered: boolean
+  isHovered: boolean;
+  names: string[];
   sendMessage: (message: any) => void;
 }
 
-export function TileItem({ tile, x, y, isHovered, sendMessage }: TileItemProps) {
+export function TileItem({ tile, x, y, isHovered, names, sendMessage }: TileItemProps) {
   const handleMouseEnter = useCallback(() => {
     sendMessage(buildMessage(HOVERED, x, y))
   }, [x, y])
@@ -45,7 +46,12 @@ export function TileItem({ tile, x, y, isHovered, sendMessage }: TileItemProps) 
       onMouseLeave={handleMouseLeave}
       onClick={handleReveal}
     >
-      {tile.revealed && <div><img src={imgSrc} alt={tile.attr.name} /></div>}
+      {0 < names.length && <div className="tooltip text-white" >{names.join(', ')}</div>}
+      {tile.revealed &&
+        <div>
+          <img src={imgSrc} alt={tile.attr.name} />
+        </div>
+      }
     </button >
   )
 }

@@ -1,15 +1,27 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import useWebSocket from 'react-use-websocket';
+import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { Tile, TileItem } from './tile';
 
 
-export default function Game() {
+export type GameProps = {
+  name: string;
+};
+
+export default function Game({ name }: GameProps) {
   const [grid, setGrid] = useState<Array<Array<Tile>>>([[]]);
-  const [hovered, setHovered] = useState<Array<Array<boolean>>>([[]]);
+  const [hovered, setHovered] = useState<Array<Array<{ hover: boolean, names: string[] }>>>([[]]);
   const [messageHistory, setMessageHistory] = useState<MessageEvent<any>[]>([]);
-  const { sendMessage, lastMessage } = useWebSocket(`${undefined !== process.env.NEXT_PUBLIC_BACKEND_DOMAIN ? process.env.NEXT_PUBLIC_BACKEND_DOMAIN : "ws://localhost:8000"}/ws`);
+  const [hasSayHello, setHasSayHello] = useState(false);
+  const { sendMessage, lastMessage, readyState } = useWebSocket(`${undefined !== process.env.NEXT_PUBLIC_BACKEND_DOMAIN ? process.env.NEXT_PUBLIC_BACKEND_DOMAIN : "ws://localhost:8000"}/ws`);
+
+  useEffect(() => {
+    if (readyState === ReadyState.CONNECTING && !hasSayHello) {
+      sendMessage(JSON.stringify({ event: "user.say-hello", name: name }));
+      setHasSayHello(true);
+    }
+  }, [readyState, hasSayHello, sendMessage, name]);
 
   useEffect(() => {
     if (lastMessage !== null) {
@@ -22,13 +34,17 @@ export default function Game() {
         switch (msg.Event) {
           case "system.hover-card":
             setHovered((prev) => {
-              prev[msg.X][msg.Y] = true;
+              const names = prev[msg.X][msg.Y].names;
+              if (names.includes(msg.Name)) {
+                return prev;
+              }
+              prev[msg.X][msg.Y] = { hover: true, names: [...names, msg.Name] };
               return prev;
             });
             break;
           case "system.leave-card":
             setHovered((prev) => {
-              prev[msg.X][msg.Y] = false;
+              prev[msg.X][msg.Y] = { hover: false, names: prev[msg.X][msg.Y].names.filter((name) => name !== msg.Name) };
               return prev;
             });
             break;
@@ -63,7 +79,7 @@ export default function Game() {
       <div className="grid w-full gap-1 !grid-cols-10">
         {grid.map((row, idxP) => {
           return row.map((tile, idx) => {
-            return <TileItem key={`${idxP}_${idx}`} tile={tile} x={idxP} y={idx} isHovered={hovered[idxP][idx]} sendMessage={sendMessage} />
+            return <TileItem key={`${idxP}_${idx}`} tile={tile} x={idxP} y={idx} isHovered={hovered[idxP][idx].hover} names={hovered[idxP][idx].names} sendMessage={sendMessage} />
           })
         })}
       </div>
@@ -78,7 +94,7 @@ function handleReceiveMessage(message: MessageEvent<any>) {
 function generateHoverFromGid(grid: Array<Array<Tile>>) {
   return grid.map((row) => {
     return row.map(() => {
-      return false
+      return { hover: false, names: [] }
     })
   })
 }
